@@ -1,0 +1,18 @@
+15 10
+IIX        W   
+IX             
+X    XX    W   
+               
+ I             
+ I    XXXXX    
+      XLLLX    
+      XLLLX    
+      XXXXX    
+               
+1 // object count
+84 1 11 1 // id, y, x, elapsedTime
+4 3 20 // player coord, hp
+0 // invent items count
+2 // mob count
+3 7 15 // mob, hp
+5 9 10 // mob, hp

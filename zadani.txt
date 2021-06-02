@@ -1,0 +1,51 @@
+# ASCIICraft
+Autor: Jan Hlaváč
+
+## Téma z Progtestu
+
+Naprogramujte jednoduchou 2D sandbox hru.
+
+Hra musí splňovat následující funkcionality
+
+1. Implementujte hráče (postava, loď, ...) a jeho stav (energie, životy, brnění, skore, ...)
+2. Vytvořte (soubojový) model zranění - alespoň dvě příčiny (pád z výšky, soubor s nepřítelem, pobyt v lávě, ...)
+3. Vytvořte jednoduchý model prostředí (gravitace, přelévání vody (lávy), růst stromů, ...)
+4. Naimplementujte načítání (konfigurace generátoru) mapy ze souboru a umožněte ukládat aktuální stav hry.
+
+Kde lze využít polymorfismus? (doporučené)
+
+- Postavy: hráč, zvířata, přítel (obchodník), nepřítel (různé druhy)
+- Efekty akcí: pád, úder, kontakt s lávou
+- Prostředí: vzduch, voda, hlína, uhlí, kov, láva, žebřík,...
+- Uživatelské rozhraní: konzole, ncurses, SDL, OpenGL (různé varianty), ...
+
+## Vlastní zadání
+
+Vytvořím jednoduchou tahovou sandbox hru, kterou (alespoň v první verzi vývoje) bude hráč ovládat příkazy v terminálu. 
+Takovými příkazy budou:
+
+- `new` - vytvoří novou hru dle hráčem poskytnuté mapy v souboru, dále se doptá hráče na počet nepřátel
+- `load` - načte rozehranou hru ze souboru
+- `w/a/s/d` - pohyb hráče po mapě
+- `mine` - vykope blok před hráčem (pokud na to hráč vlastní potřebný vercajk)
+- `build` - umístí stavební blok, tj. kámen před hráče
+- `hit` - hráč udeří před sebe, čímž zraní nepřítele, pokud tam nějaký stojí
+- `pause` - pozastaví hru
+
+Při pozastavené hře půjde použít jinou sadu příkazů, to jest:
+- `craft` - umožní hráči zadat řetězec ID předmětů (implementovaných jako znak) a vyrobí výsledný produkt podle předdefinovaných receptů
+- `unpause` - pokračuje ve hře
+- `save` - umožní uložit hru do souboru, který hráč specifikuje
+- `quit` - ukončí hru
+
+
+Příkazy budou implementovány jako třída `CCommand`, a bude je chystat podle vstupu od uživatele třída `CInterface`. O celý běh aplikace a spouštění příkazů se stará `CApplication`, stav samotné hry spravuje `CGame`. Ta obsahuje seznam všech postav (`CAgent`), hráčův inventář `CInventory` a nakonec mapu `CGrid`, které se stará o samotné herní pole s bloky (`CBlock`).
+Dále obsahuje mimo jiné metody `Load` a `Save`, které se starají o načítání z, resp. ukládání do souboru.
+
+### Kde mám polymorfismus?
+
+Jeden polymorfismus mám na `CBlock`, která má abstraktní metodu `Update`. Implementace `CStaticBlock` a `CDynamicBlock` přetěžují tuto metodu. Všechny statické bloky (zatím Stone, Lava a Iron) v této metodě nic nevykonají, zatímco ty dynamické (zatím Tree a Crop) v ní řídí svůj růst. Polymorfní volání probíhá v `Update` metodě na třídě `CGrid`, která zavolá `Update` metody na všech blocích, které má uložené v poli ukazatelů na `CBlock`.
+
+Dále aplikuji polymorfismus na `CAgent`, která má abstraktní metody `Move` a `TryAttack`. Ty budou přetíženy v implementacích `CEnemy`, která k vybrání směru pohybu použije "umělou inteligenci", a `CPlayer`, která se na nový směr pohybu dotáže `CInterface`. 
+Pro útok obdobně - nepřítel zaútočí v každém tahu na hráče, který stojí na poli vedle něj, hráč se opět dotáže `CInterface`.
+Tyto metody budou volány v `CGame` při `Update`. Metody `TakeDamageByPlayer` a `TakeDamageByEnemy` slouží k zajištění toho, aby se nemohli navzájem zraňovat nepřátelé.
