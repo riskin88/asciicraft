@@ -15,9 +15,15 @@ class CGrid;
 
 class CDynamicBlock : public CBlock {
 public:
-    CDynamicBlock(EID id, CExtendedChar display, CCoord coord, bool solid, std::vector<EID> drops, int damage = 0,
+    CDynamicBlock(EID id, CExtendedChar display, CCoord coord, bool solid, std::vector<std::pair<EID,int>> drops, int damage = 0,
                   EID tool = EID::NONE)
             : CBlock(id, display, solid, std::move(drops), damage, tool), m_Coord(coord) {}
+
+    CDynamicBlock(const CDynamicBlock &src) = default;
+
+    CDynamicBlock &operator=(const CDynamicBlock &src) = default;
+
+    ~CDynamicBlock() override = default;
 
     /**
      * is called during each move

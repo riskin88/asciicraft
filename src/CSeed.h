@@ -11,8 +11,14 @@ public:
     CSeed(CCoord coord, int elapsed)
             : CDynamicBlock(EID::SEED, CExtendedChar((char) EID::SEED, EColor::GREEN, EColor::DEFAULT, true), coord,
                             false,
-                            std::vector<EID>{EID::SEED}, 0, EID::NONE),
+                            std::vector<std::pair<EID, int>>{std::make_pair(EID::SEED, 1)}, 0, EID::NONE),
               m_Elapsed(elapsed) {}
+
+    CSeed(const CSeed &src) = default;
+
+    CSeed &operator=(const CSeed &src) = default;
+
+    ~CSeed() override = default;
 
     /**
     * advances elapsed time by 1, builds Crop if fully grown
@@ -30,7 +36,7 @@ public:
 
 private:
     int m_Elapsed;
-    static constexpr int GROW_TIME = 3;
+    static constexpr int GROW_TIME = 10;
 };
 
 

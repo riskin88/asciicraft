@@ -75,7 +75,10 @@ bool CGrid::Plant(EID id, CCoord coord, int elapsedTime) {
 bool CGrid::Mine(CCoord coord, CInventory &inventory) {
     if (isInside(coord) &&
         (getBlock(coord).minedWith() == EID::NONE || inventory.Has(getBlock(coord).minedWith()))) {
-        inventory.Add(getBlock(coord).Drop());
+        auto drop = getBlock(coord).Drop();
+        for (int i = 0; i < drop.second; ++i) {
+            inventory.Add(drop.first);
+        }
         m_Blocks[coord.m_Y][coord.m_X] = m_AirPrototype;
         m_Dynamics.erase(coord);
         return true;
@@ -135,19 +138,22 @@ std::pair<size_t, std::string> CGrid::getObjectData() const {
 CGrid::CGrid(size_t width, size_t height)
         : m_Width(width), m_Height(height), m_Blocks(height, std::vector<std::shared_ptr<CStaticBlock>>(width)) {
     m_StonePrototype = std::make_shared<CStaticBlock>(EID::STONE, CExtendedChar((char) EID::STONE), true,
-                                                      std::vector<EID>{EID::STONE});
+                                                      std::vector<std::pair<EID, int>>{std::make_pair(EID::STONE, 1)});
     m_AirPrototype = std::make_shared<CStaticBlock>(EID::AIR, CExtendedChar((char) EID::AIR), false,
-                                                    std::vector<EID>{EID::NONE}, 0,
+                                                    std::vector<std::pair<EID, int>>{std::make_pair(EID::NONE, 1)}, 0,
                                                     EID::UNCRAFTABLE);
     m_IronPrototype = std::make_shared<CStaticBlock>(EID::IRON, CExtendedChar((char) EID::IRON, EColor::YELLOW), true,
-                                                     std::vector<EID>{EID::IRON}, 0, EID::PICKAXE);
+                                                     std::vector<std::pair<EID, int>>{std::make_pair(EID::IRON, 3)}, 0,
+                                                     EID::PICKAXE);
     m_WoodPrototype = std::make_shared<CStaticBlock>(EID::WOOD, CExtendedChar((char) EID::WOOD, EColor::DEFAULT,
                                                                               EColor::BG_YELLOW), true,
-                                                     std::vector<EID>{EID::WOOD, EID::TREE});
+                                                     std::vector<std::pair<EID, int>>{std::make_pair(EID::WOOD, 1),
+                                                                                      std::make_pair(EID::TREE, 2)});
     m_CropPrototype = std::make_shared<CStaticBlock>(EID::CROP,
                                                      CExtendedChar((char) EID::CROP, EColor::YELLOW, EColor::BG_GREEN,
                                                                    true), false,
-                                                     std::vector<EID>{EID::CROP, EID::SEED});
+                                                     std::vector<std::pair<EID, int>>{std::make_pair(EID::CROP, 2),
+                                                                                      std::make_pair(EID::SEED, 3)});
 }
 
 size_t CGrid::getWidth() const {

@@ -25,19 +25,23 @@ bool CPlayer::isDead(EState &state) const {
 
 bool CPlayer::Move() {
     EDirection dir = m_Interface->getMove();
+    if (dir == m_Dir)
+        return true;
     if (dir != EDirection::NONE) {
         m_Dir = dir;
         updateChar();
-        return true;
     }
     return false;
+
 }
 
 void CPlayer::TryAttack(std::vector<std::shared_ptr<CAgent>> &agents) const {
     if (m_Interface->shouldHit()) {
         for (auto &agent : agents) {
-            if (m_Coord.Distance(agent->Coord()) <= 1)
-                agent->TakeDamageByPlayer(m_Strength);
+            if (m_Coord.Distance(agent->Coord()) <= 1) {
+                int enemyHP = agent->TakeDamageByPlayer(m_Strength);
+                if (enemyHP >= 0)m_Interface->printStr("Enemy hit! Their HP: " + std::to_string(enemyHP));
+            }
         }
     }
 }

@@ -5,10 +5,8 @@
 #include "CGame.h"
 #include "CInterface.h"
 
-using namespace std;
 
-
-CGame &CGame::LoadInventory(ifstream &fin) {
+CGame &CGame::LoadInventory(std::ifstream &fin) {
     int itemsCount;
     if (!(fin >> itemsCount) || fin.get() != '\n')
         throw std::runtime_error("Failed to read items count.");

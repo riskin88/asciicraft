@@ -21,6 +21,12 @@ public:
               m_Armor(armor) {}
 
 
+    CPlayer(const CPlayer &src) = default;
+
+    CPlayer &operator=(const CPlayer &src) = default;
+
+    ~CPlayer() override = default;
+
     /**
      * if the interface tells to hit, deals damage to all agents around self - within the radius of 1
      * @param agents
@@ -34,7 +40,7 @@ public:
     void TakeDamageByEnemy(int damage) override;
 
     /** empty, player cannot be harmed by themselves */
-    void TakeDamageByPlayer(int damage) override {}
+    int TakeDamageByPlayer(int damage) override { return -1; }
 
     /**
      * if the interface tells to move, alters direction to the new one

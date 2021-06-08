@@ -34,7 +34,7 @@ Takovými příkazy budou:
 
 Při pozastavené hře půjde použít jinou sadu příkazů, to jest:
 - `craft` - umožní hráči zadat řetězec ID předmětů (implementovaných jako znak) a vyrobí výsledný produkt podle předdefinovaných receptů
-- `unpause` - pokračuje ve hře
+- `resume` - pokračuje ve hře
 - `save` - umožní uložit hru do souboru, který hráč specifikuje
 - `quit` - ukončí hru
 

@@ -15,6 +15,12 @@ public:
      */
     CInventory();
 
+    CInventory(const CInventory &src) = default;
+
+    CInventory &operator=(const CInventory &src) = default;
+
+    ~CInventory() = default;
+
     /**
      * adds item into the inventory
      * @param item

@@ -4,11 +4,14 @@
 
 #include "CBlock.h"
 
-EID CBlock::Drop() const {
+std::pair<EID, int> CBlock::Drop() const {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distrib(0, m_Drops.size() - 1);
-    return m_Drops[distrib(gen)];
+    std::uniform_int_distribution<> distribIdx(0, m_Drops.size() - 1);
+    size_t idx = distribIdx(gen);
+    std::uniform_int_distribution<> distribCount(1, m_Drops[idx].second);
+    int count = distribCount(gen);
+    return std::make_pair(m_Drops[idx].first, count);
 }
 
 EID CBlock::getID() const {

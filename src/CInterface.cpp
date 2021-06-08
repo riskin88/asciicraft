@@ -81,17 +81,19 @@ void CInterface::printGame(const CGame &game) const {
             buffer[i + 1][j + 1] = game.GetGrid().getBlock({i, j}).Display();
         }
     }
-    // print players
+    // print agents
     for (const auto &agent : game.GetAgents()) {
         buffer[1 + agent->Coord().m_Y][1 + agent->Coord().m_X] = agent->Display();
     }
+    // player always on top
+    buffer[1 + game.GetPlayer().Coord().m_Y][1 + game.GetPlayer().Coord().m_X] = game.GetPlayer().Display();
     // flush
     for (auto &row : buffer) {
         for (auto ch : row)
             m_Out << ch;
         m_Out << std::endl;
     }
-    printStr("Enter command [w|a|s|d, mine, build, plant, eat or pause]:");
+    printStr("Enter command [w|a|s|d, hit, mine, build, plant, eat or pause]:");
 }
 
 void CInterface::printPause(const CGame &game) const {

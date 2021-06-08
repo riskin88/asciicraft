@@ -20,6 +20,12 @@ public:
     /** initializes the static block prototypes */
     CGrid(size_t width, size_t height);
 
+    CGrid(const CGrid &src) = default;
+
+    CGrid &operator=(const CGrid &src) = default;
+
+    ~CGrid() = default;
+
     /**
      * tries to mine the given Block with tools in inventory,
      * adds possible drop to inventory

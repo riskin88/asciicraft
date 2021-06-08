@@ -27,8 +27,8 @@ int main(void) {
     try {
         app.Run();
     }
-    catch (const std::exception &ex) {
-        cerr << ex.what();
+    catch (const exception &ex) {
+        cerr << ex.what() << endl;
         return 1;
     }
     return 0;

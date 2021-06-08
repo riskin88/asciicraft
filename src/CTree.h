@@ -10,8 +10,14 @@ class CTree : public CDynamicBlock {
 public:
     CTree(CCoord coord, int elapsed, int growTime = GROW_TIME)
             : CDynamicBlock(EID::TREE, CExtendedChar((char) EID::TREE, EColor::DEFAULT, EColor::BG_GREEN), coord, true,
-                            std::vector<EID>{EID::TREE}, 0, EID::NONE),
+                            std::vector<std::pair<EID, int>>{std::make_pair(EID::TREE, 1)}, 0, EID::NONE),
               m_Elapsed(elapsed), m_ToStageOne(growTime / 2) {}
+
+    CTree(const CTree &src) = default;
+
+    CTree &operator=(const CTree &src) = default;
+
+    ~CTree() override = default;
 
     /**
     * grow in 2 directions upon reaching stage one,
@@ -30,7 +36,7 @@ public:
 
 private:
     int m_Elapsed;
-    static constexpr int GROW_TIME = 5;
+    static constexpr int GROW_TIME = 20;
     int m_ToStageOne;
 };
 

@@ -20,6 +20,8 @@ public:
 
     CApplication &operator=(const CApplication &src) = delete;
 
+    ~CApplication() = default;
+
     /**
      * Goes through the main game loop
      * prints the board, gets next command from the interface and executes it based on the current game state

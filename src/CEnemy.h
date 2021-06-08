@@ -11,6 +11,12 @@ public:
     explicit CEnemy(CCoord coord, int hp = ENEMY_HP, int strength = ENEMY_STRENGTH)
             : CAgent(coord, CExtendedChar('&', EColor::RED), hp, strength) {}
 
+    CEnemy(const CEnemy &src) = default;
+
+    CEnemy &operator=(const CEnemy &src) = default;
+
+    ~CEnemy() override = default;
+
     /**
      * deals damage to all agents around self - within the radius of 1
      * @param agents
@@ -20,8 +26,9 @@ public:
     /**
      * adjusts this HP by the damage
      * @param damage
+     * @return HP after damage taken
      */
-    void TakeDamageByPlayer(int damage) override;
+    int TakeDamageByPlayer(int damage) override;
 
     /** empty, enemy cannot be harmed by another enemy */
     void TakeDamageByEnemy(int damage) override {}

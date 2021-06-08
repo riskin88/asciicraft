@@ -28,10 +28,20 @@ build/%.o: src/%.cpp
 
 doc: Doxyfile $(HEADERS)
 	doxygen Doxyfile
+	
+debug/%.test: tests/%.test.cpp $(filter-out build/main.o,$(OBJECTS))
+	mkdir -p $(@D)
+	g++ $(CXXFLAGS) $< $(filter-out build/main.o,$(OBJECTS)) -I src/ -o $@
 
 .PHONY: clean
 clean:
-	rm -rf $(USERNAME) build/ doc/ 2>/dev/null
+	rm -rf $(USERNAME) build/ debug/ doc/ 2>/dev/null
+	
+	
+.PHONY: tests
+tests: $(TESTS:tests/%.test.cpp=debug/%.test)
+	for TEST in debug/*.test; do ./$$TEST; done
+
 
 
 build/CAgent.o: src/CAgent.cpp src/CAgent.h src/CCoord.h src/EDirection.h \
@@ -104,3 +114,5 @@ build/SCommands.o: src/SCommands.cpp src/SCommands.h src/CCommand.h \
  src/CBlock.h src/CExtendedChar.h src/EColor.h src/CStaticBlock.h \
  src/CLava.h src/CDynamicBlock.h src/CTree.h src/CSeed.h src/CPlayer.h \
  src/CApplication.h src/CMapBuilder.h src/CEnemy.h
+ 
+ debug/CCoord.test.o: tests/CCoord.test.cpp src/CCoord.h src/EDirection.h

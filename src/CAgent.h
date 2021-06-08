@@ -15,6 +15,12 @@ public:
     CAgent(CCoord coord, CExtendedChar display, int hp, int strength)
             : m_Coord(coord), m_Display(display), m_HP(hp), m_Strength(strength) {};
 
+    CAgent(const CAgent &src) = default;
+
+    CAgent &operator=(const CAgent &src) = default;
+
+    virtual ~CAgent() = default;
+
     /**
      * Goes through the list of agents, harms every one of them
      * @param agents
@@ -23,7 +29,7 @@ public:
 
     virtual void TakeDamageByEnemy(int damage) = 0;
 
-    virtual void TakeDamageByPlayer(int damage) = 0;
+    virtual int TakeDamageByPlayer(int damage) = 0;
 
     /**
      * Changes agent's direction

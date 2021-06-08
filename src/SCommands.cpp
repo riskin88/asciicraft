@@ -14,6 +14,7 @@ CCommand SCommands::New() {
             throw std::runtime_error("Unable to open file with map.");
         CMapBuilder builder(fin);
         CGrid grid = builder.BuildGrid();
+        char ch; if (fin >> ch) throw std::runtime_error("Wrong file format.");
         game = std::make_unique<CGame>(grid);
         game->State() = EState::PLAYING;
         int enemyCount;

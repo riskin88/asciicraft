@@ -18,6 +18,8 @@ public:
 
     CMapBuilder &operator=(const CMapBuilder &src) = delete;
 
+    ~CMapBuilder() = default;
+
     /**
      * creates grid based from the user created character map in m_File
      * @return grid

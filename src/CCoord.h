@@ -8,6 +8,10 @@
 #include "EDirection.h"
 #include <cmath>
 
+/**
+ * using y,x coordinates system, with 0,0 corresponding to the top left corner of the grid
+ */
+
 class CCoord {
 public:
     CCoord(size_t y, size_t x)

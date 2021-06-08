@@ -19,6 +19,12 @@ class CGame {
 public:
     explicit CGame(CGrid grid);
 
+    CGame(const CGame &src) = default;
+
+    CGame &operator=(const CGame &src) = default;
+
+    ~CGame() = default;
+
     /**
      * updates all Agent directions, tries to move them, calls attacks among them,
      * removes dead agents and updates grid

@@ -11,8 +11,13 @@ class CLava : public CDynamicBlock {
 public:
     explicit CLava(CCoord coord)
             : CDynamicBlock(EID::LAVA, CExtendedChar((char) EID::LAVA, EColor::RED, EColor::BG_RED), coord, false,
-                            std::vector<EID>{EID::NONE}, DAMAGE, EID::UNCRAFTABLE) {}
+                            std::vector<std::pair<EID, int>>{std::make_pair(EID::NONE, 1)}, DAMAGE, EID::UNCRAFTABLE) {}
 
+    CLava(const CLava &src) = default;
+
+    CLava &operator=(const CLava &src) = default;
+
+    ~CLava() override = default;
     /**
      * every other move expands into all 4 directions
      * @param grid
@@ -29,7 +34,7 @@ public:
 private:
     /** ensures that this expands only every other move */
     bool shouldExpand = false;
-    static constexpr int DAMAGE = 3;
+    static constexpr int DAMAGE = 1;
 
 };
 

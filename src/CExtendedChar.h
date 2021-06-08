@@ -18,6 +18,12 @@ public:
                            bool bold = false)
             : m_Char(ch), m_Color(color), m_BgColor(bg_color), m_Bold(bold) {}
 
+    CExtendedChar(const CExtendedChar &src) = default;
+
+    CExtendedChar &operator=(const CExtendedChar &src) = default;
+
+    ~CExtendedChar() = default;
+
     /** setter for m_Char */
     CExtendedChar &Char(char ch);
 

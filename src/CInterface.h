@@ -19,6 +19,12 @@ public:
     CInterface(std::istream &in, std::ostream &out)
             : m_In(in), m_Out(out) {}
 
+    CInterface(const CInterface &src) = delete;
+
+    CInterface &operator=(const CInterface &src) = delete;
+
+    ~CInterface() = default;
+
     /**
      * tries to read the input to m_Input
      * @return self

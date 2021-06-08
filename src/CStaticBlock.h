@@ -11,7 +11,8 @@
 
 class CStaticBlock : public CBlock {
 public:
-    CStaticBlock(EID id, CExtendedChar display, bool solid, std::vector<EID> drops, int damage = 0, EID tool = EID::NONE)
+    CStaticBlock(EID id, CExtendedChar display, bool solid, std::vector<std::pair<EID, int>> drops, int damage = 0,
+                 EID tool = EID::NONE)
             : CBlock(id, display, solid, std::move(drops), damage, tool) {}
 };
 

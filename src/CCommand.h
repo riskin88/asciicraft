@@ -14,6 +14,12 @@ public:
     CCommand(std::string name, std::function<void(std::unique_ptr<CGame> &, std::shared_ptr<CInterface> &)> execute)
             : m_Name(std::move(name)), m_Execute(std::move(execute)) {}
 
+    CCommand(const CCommand &src) = default;
+
+    CCommand &operator=(const CCommand &src) = default;
+
+    ~CCommand() = default;
+
     /**
      * calls the m_Execute function
      * @param game

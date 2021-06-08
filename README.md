@@ -35,7 +35,7 @@ Bloky jsou v uživatelském rozhraní reprezentovány následujícími znaky. Ty
 - Wood: `W`
 - Seed: `.`
 - Wheat: `:`
-- Steal: `S`
+- Steel: `S`
 - Donut: `D`
 
 ## Crafting recepty
@@ -47,3 +47,49 @@ Bloky jsou v uživatelském rozhraní reprezentovány následujícími znaky. Ty
 - Iron armor = `iiiii`
 - Steel armor = `sssss`
 - Donut = `::::`
+
+## Herní soubory
+
+### `.map` soubory
+- 1.řádek: rozměry herního pole šířka x výška
+- následuje pole znaků těchto rozměrů, které odpovídají požadovaným blokům (viz výše)
+
+```
+15 10
+IIX            
+IX             
+X    XX      W 
+            WWW
+ I           W 
+ I    XXXXX    
+      XLLLX    
+      XLLLX    
+      XXXXX    
+               
+```
+
+### `.save` soubory
+- 1.část souboru: herní pole, stejný formát jako `.map`
+- následuje:
+    - počet dynamických bloků n
+    - n řádků, kde jsou následující atributy odděleny mezerami:
+        - ID bloku
+        - souřadnice y
+        - souřadnice x
+        - (další info, v případě stromu a semene uplynulá doba růstu)
+    - atributy hráče oddělené mezerou:
+        - souřadnice y
+        - souřadnice x
+        - HP hráče 
+    - počet různých itemů v inventáři m
+    - m řádků, kde jsou následující atributy odděleny mezerami:
+        - ID itemu
+        - počet kusů od tohoto itemu v inventáři
+	- počet nepřátel k
+  	- k řádků, kde jsou následující atributy odděleny mezerami:
+  		- souřadnice y
+    	- souřadnice x
+      	- HP nepřítele 
+
+    
+

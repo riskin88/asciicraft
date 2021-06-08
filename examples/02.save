@@ -1,27 +1,56 @@
-15 10
-IIX        W   
-IX             
-X    XX    W   
-               
- I             
- I    XXXXX    
-      X   X    
-      X   X    
-      XXXXX    
-               
-8
-84 1 11 1
-46 4 0 0
+45 25
+                                 II  II      
+XX                                IIII       
+XX   XX      W                      I        
+            WWW                     II       
+ I           W                     II        
+ I    XXXXX               :                  
+      X   X            ::::                  
+      X   X             ::                   
+      XXXXX                                  
+                                    ::       
+                        XX           :::     
+                      XXXXX          ::      
+            W         XX                     
+           WWW                               
+            W                                
+                            W                
+                           WWW               
+                  W         W                
+      XXXX       WWW                         
+   XXXXXXX        W                          
+  XXXIIIXX                              XXXXX
+ XXIIIIIXXX                             X    
+ XXXXXIIIXX                             X    
+    XXXXXX                              XX   
+       XX                                 XX 
+18
 76 6 7
 76 6 8
 76 6 9
 76 7 7
 76 7 8
 76 7 9
-4 3 20
-2
-87 20
-88 10
-2
-3 7 15
-5 3 10
+76 21 41
+76 21 42
+76 21 43
+76 21 44
+76 22 41
+76 22 42
+76 22 43
+76 22 44
+76 23 42
+76 23 43
+76 23 44
+76 24 44
+23 15 20
+5
+46 3
+84 1
+1 1
+83 6
+58 10
+3
+23 3 10
+10 16 10
+6 22 10

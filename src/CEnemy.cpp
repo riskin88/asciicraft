@@ -11,8 +11,8 @@ void CEnemy::TryAttack(std::vector<std::shared_ptr<CAgent>> &agents) const {
     }
 }
 
-void CEnemy::TakeDamageByPlayer(int damage) {
-    m_HP -= damage;
+int CEnemy::TakeDamageByPlayer(int damage) {
+    return m_HP -= damage;
 }
 
 bool CEnemy::Move() {
